@@ -1,1 +1,1 @@
-A tool to obtain the original return data of the HTTP request.
+A c# winform to manage local hosts file.
