@@ -51,6 +51,7 @@
       this.txtHostContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
       this.txtHostContent.Size = new System.Drawing.Size(600, 200);
       this.txtHostContent.TabIndex = 5;
+      this.txtHostContent.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtHostContent_KeyDown);
       // 
       // topPanel
       // 

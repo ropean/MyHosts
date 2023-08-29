@@ -122,6 +122,21 @@ namespace MyHosts
 
       frmMain.DoAdd(ip, domain);
     }
+
+    private void txtInput_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Enter)
+      {
+        if (btnAddNew.Visible)
+        {
+          btnAddNew_Click(null, null);
+        }
+        else if (btnReplace.Visible)
+        {
+          btnReplace_Click(null, null);
+        }
+      }
+    }
   }
 
   public enum EditMode

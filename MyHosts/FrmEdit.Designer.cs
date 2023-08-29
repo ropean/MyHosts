@@ -56,6 +56,7 @@ namespace MyHosts
       this.txtInput.Name = "txtInput";
       this.txtInput.Size = new System.Drawing.Size(420, 29);
       this.txtInput.TabIndex = 2;
+      this.txtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtInput_KeyDown);
       // 
       // btnAddNew
       // 

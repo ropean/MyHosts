@@ -135,5 +135,13 @@ namespace MyHosts
     {
       new FrmEdit(this, EditMode.Replace).ShowDialog();
     }
+
+    private void txtHostContent_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.Control && e.KeyCode == Keys.S)
+      {
+        btnSave_Click(null, null);
+      }
+    }
   }
 }
