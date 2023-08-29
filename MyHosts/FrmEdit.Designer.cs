@@ -34,7 +34,6 @@ namespace MyHosts
       this.txtInput = new System.Windows.Forms.TextBox();
       this.btnAddNew = new System.Windows.Forms.Button();
       this.btnReplace = new System.Windows.Forms.Button();
-      this.labTip = new System.Windows.Forms.Label();
       this.txtHolder = new System.Windows.Forms.TextBox();
       this.SuspendLayout();
       // 
@@ -84,18 +83,6 @@ namespace MyHosts
       this.btnReplace.UseVisualStyleBackColor = true;
       this.btnReplace.Click += new System.EventHandler(this.btnReplace_Click);
       // 
-      // labTip
-      // 
-      this.labTip.AutoSize = true;
-      this.labTip.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.labTip.ForeColor = System.Drawing.Color.Brown;
-      this.labTip.Location = new System.Drawing.Point(75, 238);
-      this.labTip.Name = "labTip";
-      this.labTip.Padding = new System.Windows.Forms.Padding(4, 7, 4, 7);
-      this.labTip.Size = new System.Drawing.Size(59, 30);
-      this.labTip.TabIndex = 0;
-      this.labTip.Text = "Tip text";
-      // 
       // txtHolder
       // 
       this.txtHolder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -112,8 +99,7 @@ namespace MyHosts
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(597, 300);
-      this.Controls.Add(this.labTip);
+      this.ClientSize = new System.Drawing.Size(597, 235);
       this.Controls.Add(this.btnReplace);
       this.Controls.Add(this.btnAddNew);
       this.Controls.Add(this.txtInput);
@@ -138,7 +124,6 @@ namespace MyHosts
     private System.Windows.Forms.Button btnAddNew;
     private System.Windows.Forms.Button btnReplace;
     private System.Windows.Forms.TextBox txtInput;
-    private System.Windows.Forms.Label labTip;
     private System.Windows.Forms.TextBox txtHolder;
   }
 }

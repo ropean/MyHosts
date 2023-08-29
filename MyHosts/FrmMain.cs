@@ -9,16 +9,23 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace MyHosts
 {
   public partial class FrmMain : Form
   {
+    CustomNotificationForm NotificationForm { get; set; }
+
     public FrmMain()
     {
       InitializeComponent();
 
+      NotificationForm = new CustomNotificationForm(this);
+
       LoadHosts();
+
+      NotificationForm.Primary("Init hosts successfully.");
     }
 
     //void TxtURL_KeyPress(object sender, KeyPressEventArgs e)
@@ -38,10 +45,10 @@ namespace MyHosts
       txtHostContent.Height = this.Height - topPanel.Height - 60;
     }
 
-    static void ShowMessageBoxWithIcon(string message)
-    {
-      MessageBox.Show(message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-    }
+    //static void ShowMessageBoxWithIcon(string message)
+    //{
+    //  MessageBox.Show(message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+    //}
 
     public void DoAdd(string ip, string domain)
     {
@@ -55,7 +62,7 @@ namespace MyHosts
       }
       catch (Exception exc)
       {
-        ShowMessageBoxWithIcon(exc.Message);
+        NotificationForm.Danger(exc.Message);
       }
     }
 
@@ -69,7 +76,7 @@ namespace MyHosts
       }
       catch (Exception exc)
       {
-        ShowMessageBoxWithIcon(exc.Message);
+        NotificationForm.Danger(exc.Message);
       }
     }
 
@@ -81,7 +88,7 @@ namespace MyHosts
       }
       catch (Exception exc)
       {
-        ShowMessageBoxWithIcon(exc.Message);
+        NotificationForm.Danger(exc.Message);
       }
     }
 
@@ -95,6 +102,8 @@ namespace MyHosts
     private void btnReload_Click(object sender, EventArgs e)
     {
       LoadHosts();
+
+      NotificationForm.Info("Reload hosts successfully.");
     }
 
     private void btnSave_Click(object sender, EventArgs e)
@@ -104,10 +113,12 @@ namespace MyHosts
         var config = txtHostContent.Text;
 
         WriteHosts(config);
+
+        NotificationForm.Success("Save hosts successfully.");
       }
       catch (Exception exc)
       {
-        ShowMessageBoxWithIcon(exc.Message);
+        NotificationForm.Danger(exc.Message);
       }
     }
 

@@ -14,13 +14,15 @@ namespace MyHosts
   {
     readonly FrmMain frmMain;
 
+    CustomNotificationForm NotificationForm { get; set; }
+
     public FrmEdit(FrmMain frmMain, EditMode editMode)
     {
       InitializeComponent();
 
-      labTip.Text = "";
-
       this.frmMain = frmMain;
+
+      NotificationForm = new CustomNotificationForm(this);
 
       switch (editMode)
       {
@@ -79,30 +81,37 @@ namespace MyHosts
 
     private void btnReplace_Click(object sender, EventArgs e)
     {
-      frmMain.DoReplace(txtIP.Text.Trim(), txtInput.Text.Trim());
+      var input1 = txtIP.GetText();
+
+      if (string.IsNullOrEmpty(input1))
+      {
+        NotificationForm.Info($"Nothing to do...");
+
+        return;
+      }
+
+      frmMain.DoReplace(input1, txtInput.GetText());
     }
 
     private void btnAddNew_Click(object sender, EventArgs e)
     {
-      var input1 = txtIP.Text.Trim();
+      var input1 = txtIP.GetText();
 
-      var input2 = txtInput.Text.Trim();
+      var input2 = txtInput.GetText();
 
       if (Utility.TryValidateIP(input1, out string ip) == false)
       {
-        labTip.Text = $"Invalid IP: {input1}";
+        NotificationForm.Warning($"Invalid IP: {input1}");
 
         return;
       }
 
       if (Utility.TryValidateDomain(input2, out string domain) == false)
       {
-        labTip.Text = $"Invalid domain: {input2}";
+        NotificationForm.Info($"Invalid domain: {input2}");
 
         return;
       }
-
-      labTip.Text = string.Empty;
 
       frmMain.DoAdd(ip, domain);
     }
@@ -112,5 +121,18 @@ namespace MyHosts
   {
     Add,
     Replace
+  }
+
+  public static class WinExtensions
+  {
+    public static string GetText(this TextBox textBox)
+    {
+      if (textBox.ForeColor == SystemColors.GrayText)
+      {
+        return null;
+      }
+
+      return textBox.Text.Trim();
+    }
   }
 }
