@@ -59,6 +59,8 @@ namespace MyHosts
         var config = newConfig + Environment.NewLine + txtHostContent.Text;
 
         WriteHosts(config);
+
+        NotificationForm.Success("Add hosts record successfully.");
       }
       catch (Exception exc)
       {
@@ -73,6 +75,8 @@ namespace MyHosts
         var config = txtHostContent.Text.Replace(find, replace);
 
         WriteHosts(config);
+
+        NotificationForm.Info("Replacement complete.");
       }
       catch (Exception exc)
       {

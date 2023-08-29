@@ -99,6 +99,13 @@ namespace MyHosts
 
       var input2 = txtInput.GetText();
 
+      if (string.IsNullOrEmpty(input1) || string.IsNullOrEmpty(input2))
+      {
+        NotificationForm.Warning("Both textboxes require input.");
+
+        return;
+      }
+
       if (Utility.TryValidateIP(input1, out string ip) == false)
       {
         NotificationForm.Warning($"Invalid IP: {input1}");
