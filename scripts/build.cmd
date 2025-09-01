@@ -3,7 +3,18 @@ echo ========================================
 echo MyHosts Build Script (Release Mode)
 echo ========================================
 
-set PROJECT_FILE=MyHosts\MyHosts.csproj
+REM Auto-detect the correct path
+if exist "MyHosts\MyHosts.csproj" (
+    set PROJECT_FILE=MyHosts\MyHosts.csproj
+) else if exist "..\MyHosts\MyHosts.csproj" (
+    set PROJECT_FILE=..\MyHosts\MyHosts.csproj
+) else (
+    echo ERROR: Cannot find MyHosts.csproj
+    echo Please run this script from the root directory or scripts directory
+    exit /b 1
+)
+
+echo Using project file: %PROJECT_FILE%
 
 echo Restoring NuGet packages...
 msbuild "%PROJECT_FILE%" /t:Restore /verbosity:quiet

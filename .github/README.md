@@ -48,6 +48,13 @@ The workflow will only include the compiled `MyHosts.exe` file in the release, k
 - **Output**: Only the executable file is included in the release
 - **Version Sync**: Automatically syncs GitHub tag with assembly version
 
+## Local Build
+
+The `build.cmd` script works from both locations:
+
+- **Root directory**: `scripts\build.cmd`
+- **Scripts directory**: `build.cmd`
+
 ## Requirements
 
 - Your repository must have the `GITHUB_TOKEN` secret available (this is automatic for public repos)
