@@ -67,7 +67,7 @@ MyHosts/
 └── scripts/                      # Build and utility scripts
     ├── build.cmd                 # Build script (Release mode)
     ├── clean.cmd                 # Clean script (Debug & Release)
-    └── README.md                 # Scripts documentation
+    └── Scripts.md                # Scripts documentation
 ```
 
 ## 🏗️ Build Scripts
