@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>hosts.ico</ApplicationIcon>
+    <ApplicationIcon>..\assets\app.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -110,10 +110,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\top_backgroud.png" />
+    <None Include="..\assets\top_backgroud.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="hosts.ico" />
+    <Content Include="..\assets\app.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
