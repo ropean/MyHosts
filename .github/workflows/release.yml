@@ -1,0 +1,76 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Extract version from tag
+        id: get_version
+        run: |
+          if ("${{ github.ref_type }}" -eq "tag") {
+            $version = "${{ github.ref_name }}"
+            $versionNumber = $version -replace "^v", ""
+          } else {
+            $version = "dev"
+            $versionNumber = "0.0.0"
+          }
+          echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+          echo "VERSION_NUMBER=$versionNumber" >> $env:GITHUB_OUTPUT
+          echo "Tag version: $version"
+          echo "Version number: $versionNumber"
+
+      - name: Update AssemblyInfo with version
+        run: |
+          $version = "${{ steps.get_version.outputs.VERSION_NUMBER }}"
+          if ($version -eq "0.0.0") { $version = "1.0.0.0" }
+          $assemblyInfoPath = "MyHosts\Properties\AssemblyInfo.cs"
+          $content = Get-Content $assemblyInfoPath -Raw
+          $content = $content -replace '\[assembly: AssemblyVersion\(".*"\)\]', "[assembly: AssemblyVersion(`"$version.0`")]"
+          $content = $content -replace '\[assembly: AssemblyFileVersion\(".*"\)\]', "[assembly: AssemblyFileVersion(`"$version.0`")]"
+          Set-Content $assemblyInfoPath $content -Encoding UTF8
+          echo "Updated AssemblyInfo.cs with version $version.0"
+
+      - name: Build using build.cmd
+        run: |
+          cd scripts
+          .\build.cmd
+          cd ..
+
+      - name: Verify .exe exists
+        run: |
+          if not exist "MyHosts\bin\Release\MyHosts.exe" (
+            echo "MyHosts.exe not found in build output!"
+            exit 1
+          )
+          echo "Build successful - MyHosts.exe found"
+
+      - name: Create Release Package
+        run: |
+          mkdir release-package
+          copy "MyHosts\bin\Release\MyHosts.exe" "release-package\"
+          echo "Release package created with MyHosts.exe"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.get_version.outputs.VERSION }}
+          name: Release ${{ steps.get_version.outputs.VERSION }}
+          files: release-package/*.exe
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
