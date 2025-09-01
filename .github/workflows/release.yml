@@ -17,60 +17,44 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.1
+        uses: microsoft/setup-msbuild@v2
 
       - name: Extract version from tag
         id: get_version
         run: |
-          if ("${{ github.ref_type }}" -eq "tag") {
-            $version = "${{ github.ref_name }}"
-            $versionNumber = $version -replace "^v", ""
-          } else {
-            $version = "dev"
-            $versionNumber = "0.0.0"
-          }
-          "VERSION=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          "VERSION_NUMBER=$versionNumber" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          Write-Host "Tag version: $version"
+          $versionNumber = "${{ github.ref_name }}" -replace "^v", ""
+          echo "VERSION_NUMBER=$versionNumber" >> $env:GITHUB_OUTPUT
           Write-Host "Version number: $versionNumber"
 
       - name: Update AssemblyInfo with version
         run: |
           $version = "${{ steps.get_version.outputs.VERSION_NUMBER }}"
-          if ($version -eq "0.0.0") { $version = "1.0.0.0" }
-          $assemblyInfoPath = "MyHosts\Properties\AssemblyInfo.cs"
+          $assemblyInfoPath = "MyHosts/Properties/AssemblyInfo.cs"
           $content = Get-Content $assemblyInfoPath -Raw
           $content = $content -replace '\[assembly: AssemblyVersion\(".*"\)\]', "[assembly: AssemblyVersion(`"$version.0`")]"
           $content = $content -replace '\[assembly: AssemblyFileVersion\(".*"\)\]', "[assembly: AssemblyFileVersion(`"$version.0`")]"
+          $content = $content -replace '\[assembly: AssemblyInformationalVersion\(".*"\)\]', "[assembly: AssemblyInformationalVersion(`"$version.0`")]"
           Set-Content $assemblyInfoPath $content -Encoding UTF8
           Write-Host "Updated AssemblyInfo.cs with version $version.0"
 
       - name: Build using build.cmd
         run: |
-          cd scripts
-          .\build.cmd
-          cd ..
+          ./scripts/build.cmd
 
       - name: Verify .exe exists
         run: |
-          if (-not (Test-Path "MyHosts\bin\Release\MyHosts.exe")) {
+          if (-not (Test-Path "MyHosts/bin/Release/MyHosts.exe")) {
             Write-Error "MyHosts.exe not found in build output!"
             exit 1
           }
           Write-Host "Build successful - MyHosts.exe found"
-
-      - name: Create Release Package
-        run: |
-          New-Item -ItemType Directory -Name "release-package" -Force
-          Copy-Item "MyHosts\bin\Release\MyHosts.exe" "release-package\"
-          Write-Host "Release package created with MyHosts.exe"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.get_version.outputs.VERSION }}
           name: Release ${{ steps.get_version.outputs.VERSION }}
-          files: release-package/*.exe
+          files: MyHosts/bin/Release/MyHosts.exe
           draft: false
           prerelease: false
           generate_release_notes: false
