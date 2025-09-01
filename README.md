@@ -48,26 +48,26 @@ scripts\build.cmd
 
 ```
 MyHosts/
-├── assets/                    # Project assets
-│   ├── screenshot.png         # Application screenshot
-│   ├── app.ico              # Application icon
-│   └── top_backgroud.png      # Background image
-├── CHANGELOG.md               # Project changelog
-├── LICENSE                    # MIT license
-├── README.md                  # This file
-├── MyHosts/                    # Main application
-│   ├── App.config             # Application configuration
-│   ├── app.manifest           # Application manifest
-│   ├── Program.cs             # Application entry point
-│   ├── FrmMain.cs             # Main form
-│   ├── FrmEdit.cs             # Edit form
+├── assets/                       # Project assets
+│   ├── screenshot.png            # Application screenshot
+│   ├── app.ico                   # Application icon
+│   └── top_backgroud.png         # Background image
+├── CHANGELOG.md                  # Project changelog
+├── LICENSE                       # MIT license
+├── README.md                     # This file
+├── MyHosts/                      # Main application
+│   ├── App.config                # Application configuration
+│   ├── app.manifest              # Application manifest
+│   ├── Program.cs                # Application entry point
+│   ├── FrmMain.cs                # Main form
+│   ├── FrmEdit.cs                # Edit form
 │   ├── CustomNotificationForm.cs # Notification form
-│   ├── Utility.cs             # Helper utilities
-│   └── Properties/            # Application properties
-└── scripts/                   # Build and utility scripts
-    ├── build.cmd              # Build script (Release mode)
-    ├── clean.cmd              # Clean script (Debug & Release)
-    └── README.md              # Scripts documentation
+│   ├── Utility.cs                # Helper utilities
+│   └── Properties/               # Application properties
+└── scripts/                      # Build and utility scripts
+    ├── build.cmd                 # Build script (Release mode)
+    ├── clean.cmd                 # Clean script (Debug & Release)
+    └── README.md                 # Scripts documentation
 ```
 
 ## 🏗️ Build Scripts
