@@ -36,7 +36,7 @@ if %errorlevel% neq 0 (
 
 echo.
 echo Building Release configuration...
-msbuild "%PROJECT_FILE%" /p:Configuration=Release /p:AssemblyVersion=%GIT_TAG% /p:FileVersion=%GIT_TAG% /p:InformationalVersion=%GIT_TAG% /verbosity:minimal
+msbuild "%PROJECT_FILE%" /p:Configuration=Release /p:AssemblyVersion=%GIT_TAG% /p:FileVersion=%GIT_TAG% /p:InformationalVersion=%GIT_TAG% /p:AssemblyProduct="MyHosts v%GIT_TAG%" /verbosity:minimal
 if %errorlevel% neq 0 (
     echo ERROR: Build failed for Release configuration
     goto :error
