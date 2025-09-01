@@ -27,10 +27,10 @@ jobs:
             $version = "dev"
             $versionNumber = "0.0.0"
           }
-          echo "VERSION=$version" >> $env:GITHUB_OUTPUT
-          echo "VERSION_NUMBER=$versionNumber" >> $env:GITHUB_OUTPUT
-          echo "Tag version: $version"
-          echo "Version number: $versionNumber"
+          "VERSION=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "VERSION_NUMBER=$versionNumber" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          Write-Host "Tag version: $version"
+          Write-Host "Version number: $versionNumber"
 
       - name: Update AssemblyInfo with version
         run: |
@@ -41,7 +41,7 @@ jobs:
           $content = $content -replace '\[assembly: AssemblyVersion\(".*"\)\]', "[assembly: AssemblyVersion(`"$version.0`")]"
           $content = $content -replace '\[assembly: AssemblyFileVersion\(".*"\)\]', "[assembly: AssemblyFileVersion(`"$version.0`")]"
           Set-Content $assemblyInfoPath $content -Encoding UTF8
-          echo "Updated AssemblyInfo.cs with version $version.0"
+          Write-Host "Updated AssemblyInfo.cs with version $version.0"
 
       - name: Build using build.cmd
         run: |
@@ -51,17 +51,17 @@ jobs:
 
       - name: Verify .exe exists
         run: |
-          if not exist "MyHosts\bin\Release\MyHosts.exe" (
-            echo "MyHosts.exe not found in build output!"
+          if (-not (Test-Path "MyHosts\bin\Release\MyHosts.exe")) {
+            Write-Error "MyHosts.exe not found in build output!"
             exit 1
-          )
-          echo "Build successful - MyHosts.exe found"
+          }
+          Write-Host "Build successful - MyHosts.exe found"
 
       - name: Create Release Package
         run: |
-          mkdir release-package
-          copy "MyHosts\bin\Release\MyHosts.exe" "release-package\"
-          echo "Release package created with MyHosts.exe"
+          New-Item -ItemType Directory -Name "release-package" -Force
+          Copy-Item "MyHosts\bin\Release\MyHosts.exe" "release-package\"
+          Write-Host "Release package created with MyHosts.exe"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
