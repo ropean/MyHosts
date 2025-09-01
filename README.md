@@ -1,6 +1,6 @@
 # MyHosts
 
-A lightweight Windows Forms application for managing the local hosts file on Windows systems.
+**MyHosts** is a utility that helps you edit and manage the Windows hosts file for network configuration and blocking. It's a lightweight Windows Forms application for managing the local hosts file on Windows systems.
 
 ## 📋 Features
 
@@ -29,7 +29,7 @@ _MyHosts interface showing hosts file management functionality_
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/ropean/MyHosts
 cd MyHosts
 
 # Build in Release mode
@@ -136,7 +136,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you encounter any issues or have questions:
 
-1. Check the [Issues](../../issues) page
+1. Check the [Issues](https://github.com/ropean/MyHosts/issues) page
 2. Create a new issue with detailed information
 3. Include your Windows version and .NET Framework version
 
@@ -145,6 +145,13 @@ If you encounter any issues or have questions:
 See [CHANGELOG.md](CHANGELOG.md) for detailed version history and changes.
 
 ### Latest Changes
+
+- **v0.2.0** - Current release
+
+  - Enhanced hosts file management
+  - Improved user interface
+  - Better backup and restore features
+  - Performance optimizations
 
 - **v1.0.0** - Initial release
   - Basic hosts file management
