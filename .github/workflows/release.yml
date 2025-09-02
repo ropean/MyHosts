@@ -52,11 +52,45 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.get_version.outputs.VERSION }}
-          name: Release ${{ steps.get_version.outputs.VERSION }}
+          tag_name: ${{ steps.get_version.outputs.VERSION_NUMBER }}
+          name: Release ${{ steps.get_version.outputs.VERSION_NUMBER }}
           files: MyHosts/bin/Release/MyHosts.exe
           draft: false
           prerelease: false
           generate_release_notes: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Scoop Bucket
+        run: |
+          # Get the download URL and hash
+          $version = "${{ steps.get_version.outputs.VERSION_NUMBER }}"
+          $downloadUrl = "https://github.com/${{ github.repository }}/releases/download/v$version/MyHosts.exe"
+
+          # Calculate hash of the released file
+          $filePath = "MyHosts/bin/Release/MyHosts.exe"
+          $hash = Get-FileHash -Path $filePath -Algorithm SHA256 | Select-Object -ExpandProperty Hash
+
+          # Clone the scoop bucket repository
+          git clone https://github.com/ropean/scoop-ropean.git scoop-bucket
+          cd scoop-bucket
+
+          # Configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Update the JSON file
+          $jsonPath = "bucket/myhosts.json"
+          $json = Get-Content $jsonPath -Raw | ConvertFrom-Json
+          $json.version = $version
+          $json.url = $downloadUrl
+          $json.hash = $hash.ToLower()
+
+          $json | ConvertTo-Json -Depth 10 | Set-Content $jsonPath -Encoding UTF8
+
+          # Commit and push changes
+          git add $jsonPath
+          git commit -m "Update MyHosts to version $version"
+          git push https://${{ secrets.SCOOP_BUCKET_TOKEN }}@github.com/ropean/scoop-ropean.git main
+        env:
+          SCOOP_BUCKET_TOKEN: ${{ secrets.SCOOP_BUCKET_TOKEN }}
