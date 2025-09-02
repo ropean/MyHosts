@@ -15,7 +15,7 @@ namespace MyHosts
     {
       string rawText;
 
-      // 使用 UTF-8 编码来读取文件内容
+      // Use UTF-8 encoding to read file content
       using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
       {
         using (StreamReader reader = new StreamReader(fileStream, Encoding.UTF8))
@@ -29,10 +29,10 @@ namespace MyHosts
 
     public static void WriteTextFileWithSharedMode(string filePath, string content)
     {
-      // 使用 UTF-8 编码来将字符串转换为字节数组
+      // Use UTF-8 encoding to convert string to byte array
       byte[] bytes = Encoding.UTF8.GetBytes(content);
 
-      // 打开文件并以共享模式写入
+      // Open file and write in shared mode
       using (FileStream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
       {
         fileStream.Write(bytes, 0, bytes.Length);
@@ -41,28 +41,28 @@ namespace MyHosts
 
     public static bool ValidateIPv4(string ipAddress)
     {
-      // IPv4地址的正则表达式
+      // Regular expression for IPv4 address
       string ipv4Pattern = @"^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
 
-      // 使用正则表达式进行匹配
+      // Use regular expression for matching
       return Regex.IsMatch(ipAddress, ipv4Pattern);
     }
 
     public static bool ValidateIPv6(string ipAddress)
     {
-      // IPv6地址的正则表达式
+      // Regular expression for IPv6 address
       string ipv6Pattern = @"^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$";
 
-      // 使用正则表达式进行匹配
+      // Use regular expression for matching
       return Regex.IsMatch(ipAddress, ipv6Pattern);
     }
 
     public static bool ValidateDomain(string domain)
     {
-      // 域名的正则表达式
+      // Regular expression for domain name
       string domainPattern = @"^([a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.)+[a-zA-Z]{2,}$";
 
-      // 使用正则表达式进行匹配
+      // Use regular expression for matching
       return Regex.IsMatch(domain, domainPattern);
     }
 

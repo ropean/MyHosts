@@ -64,13 +64,13 @@ namespace MyHosts
       // The notification will behave as a child of the owner form
     }
 
-    private Color BorderColor = Color.FromArgb(233, 236, 239); // 自定义边框颜色
+    private Color BorderColor = Color.FromArgb(233, 236, 239); // Custom border color
 
     void SetBorderColor(Color borderColor)
     {
       BorderColor = borderColor;
 
-      SetStyle(ControlStyles.ResizeRedraw, true); // 启用重绘以实现自定义边框效果
+      SetStyle(ControlStyles.ResizeRedraw, true); // Enable redraw to achieve custom border effect
     }
 
     protected override void OnPaint(PaintEventArgs e)

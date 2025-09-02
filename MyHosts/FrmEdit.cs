@@ -47,23 +47,23 @@ namespace MyHosts
       }
     }
 
-    // 添加提示性文字到文本框的方法
+    // Method to add placeholder text to textbox
     private void AddPlaceholderText(TextBox textBox, string placeholderText)
     {
       if (textBox.Tag != null && textBox.Tag.Equals("PlaceholderAdded"))
       {
-        return; // 如果已经添加过提示性文字，直接返回
+        return; // If placeholder text has already been added, return directly
       }
 
       textBox.Text = placeholderText;
-      textBox.ForeColor = SystemColors.GrayText; // 设置灰色字体颜色
+      textBox.ForeColor = SystemColors.GrayText; // Set gray font color
 
       textBox.Enter += (sender, e) =>
       {
         if (textBox.Text == placeholderText)
         {
           textBox.Text = "";
-          textBox.ForeColor = SystemColors.WindowText; // 恢复正常字体颜色
+          textBox.ForeColor = SystemColors.WindowText; // Restore normal font color
         }
       };
 
@@ -72,11 +72,11 @@ namespace MyHosts
         if (string.IsNullOrWhiteSpace(textBox.Text))
         {
           textBox.Text = placeholderText;
-          textBox.ForeColor = SystemColors.GrayText; // 设置灰色字体颜色
+          textBox.ForeColor = SystemColors.GrayText; // Set gray font color
         }
       };
 
-      textBox.Tag = "PlaceholderAdded"; // 添加标记，防止重复添加事件处理程序
+      textBox.Tag = "PlaceholderAdded"; // Add tag to prevent duplicate event handler addition
     }
 
     private void btnReplace_Click(object sender, EventArgs e)
