@@ -47,7 +47,7 @@ namespace MyHosts
       this.ShowIcon = false;
       this.ShowInTaskbar = false;
       this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-      this.TopMost = true;
+      this.TopMost = false;
       this.ResumeLayout(false);
     }
 
@@ -56,6 +56,12 @@ namespace MyHosts
       timer = new Timer();
 
       timer.Tick += Timer_Tick;
+    }
+
+    private void InitializeWindowHandling()
+    {
+      // Simple approach: just set up the owner relationship
+      // The notification will behave as a child of the owner form
     }
 
     private Color BorderColor = Color.FromArgb(233, 236, 239); // 自定义边框颜色
@@ -106,9 +112,9 @@ namespace MyHosts
       Show(message, Color.FromArgb(255, 243, 205), Color.FromArgb(153, 116, 4), Color.FromArgb(255, 230, 156), 0);
     }
 
-    public void Info(string message)
+    public void Info(string message, int durationInSeconds = 3)
     {
-      Show(message, Color.FromArgb(207, 244, 252), Color.FromArgb(8, 121, 144), Color.FromArgb(158, 234, 249), 0);
+      Show(message, Color.FromArgb(207, 244, 252), Color.FromArgb(8, 121, 144), Color.FromArgb(158, 234, 249), durationInSeconds);
     }
 
     public void Show(string message, Color backColor, Color textColor, Color borderColor, int durationInSeconds = 5)
@@ -135,7 +141,8 @@ namespace MyHosts
 
     private void label_Click(object sender, EventArgs e)
     {
-      Timer_Tick(null, null);
+      timer.Stop();
+      Hide();
     }
   }
 }
