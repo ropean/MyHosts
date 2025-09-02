@@ -2,25 +2,31 @@ name: Update MyHosts in Scoop Bucket
 
 on:
   workflow_run:
-    workflows: ['Build and Release'] # must match the `name:` in release.yml
+    workflows: ['Build and Release']
     types:
       - completed
 
 jobs:
   update-scoop:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    uses: ropean/my-github-actions/.github/workflows/update-scoop.yml@main
-    with:
-      tag: ${{ github.event.release.tag_name }}
-      app_name: 'myhosts'
-      exe_name: 'MyHosts.exe'
-      scoop_bucket_repo: 'ropean/scoop-ropean'
-      source_repo: ${{ github.repository }}
-      description: 'Hosts file editor utility for Windows'
-      homepage: 'https://github.com/ropean/MyHosts'
-      license_identifier: 'MIT'
-      license_url: 'https://github.com/ropean/MyHosts/blob/main/LICENSE'
-      bin_name: 'MyHosts.exe'
-      shortcut_name: 'MyHosts'
-      shortcut_description: 'Hosts file editor'
-      notes: 'MyHosts is a utility that helps you edit and manage the Windows hosts file for network configuration and blocking.'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo tag from workflow_run
+        run: echo "Tag is ${{ github.event.workflow_run.head_branch }}"
+
+      - name: Call reusable workflow
+        if: github.event.workflow_run.conclusion == 'success'
+        uses: ropean/my-github-actions/.github/workflows/update-scoop.yml@main
+        with:
+          tag: ${{ github.event.workflow_run.head_branch }}
+          app_name: 'myhosts'
+          exe_name: 'MyHosts.exe'
+          scoop_bucket_repo: 'ropean/scoop-ropean'
+          source_repo: ${{ github.repository }}
+          description: 'Hosts file editor utility for Windows'
+          homepage: 'https://github.com/ropean/MyHosts'
+          license_identifier: 'MIT'
+          license_url: 'https://github.com/ropean/MyHosts/blob/main/LICENSE'
+          bin_name: 'MyHosts.exe'
+          shortcut_name: 'MyHosts'
+          shortcut_description: 'Hosts file editor'
+          notes: 'MyHosts is a utility that helps you edit and manage the Windows hosts file for network configuration and blocking.'
