@@ -23,4 +23,5 @@ jobs:
       shortcut_description: 'Hosts file editor'
       notes: 'MyHosts is a utility that helps you edit and manage the Windows hosts file for network configuration and blocking.'
     secrets:
+      source_repo_token: ${{ secrets.GITHUB_TOKEN }}
       deploy_key: ${{ secrets.SCOOP_ROPEAN_DEPLOY_KEY }}
