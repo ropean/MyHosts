@@ -15,7 +15,7 @@ jobs:
 
   update-scoop:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    uses: ropean/my-github-actions/.github/workflows/update-scoop.yml@main
+    uses: ropean/scoop-ropean/.github/workflows/update-scoop-call.yml@main
     with:
       tag: ${{ github.event.workflow_run.head_branch }}
       app_name: 'myhosts'
@@ -31,4 +31,4 @@ jobs:
       shortcut_description: 'Hosts file editor'
       notes: 'MyHosts is a utility that helps you edit and manage the Windows hosts file for network configuration and blocking.'
     secrets:
-      SCOOP_ROPEAN_DEPLOY_KEY: ${{ secrets.SCOOP_ROPEAN_DEPLOY_KEY }}
+      deploy_key: ${{ secrets.SCOOP_ROPEAN_DEPLOY_KEY }}
