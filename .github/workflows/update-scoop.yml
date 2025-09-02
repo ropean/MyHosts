@@ -1,11 +1,14 @@
 name: Update MyHosts in Scoop Bucket
 
 on:
-  release:
-    types: [published]
+  workflow_run:
+    workflows: ['Build and Release'] # must match the `name:` in release.yml
+    types:
+      - completed
 
 jobs:
   update-scoop:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     uses: ropean/my-github-actions/.github/workflows/update-scoop.yml@main
     with:
       tag: ${{ github.event.release.tag_name }}
