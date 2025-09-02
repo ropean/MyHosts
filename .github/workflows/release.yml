@@ -51,7 +51,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.get_version.outputs.VERSION_NUMBER }}
+          # tag_name: ${{ steps.get_version.outputs.VERSION_NUMBER }}
           name: Release ${{ steps.get_version.outputs.VERSION_NUMBER }}
           files: MyHosts/bin/Release/MyHosts.exe
           draft: false
