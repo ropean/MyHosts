@@ -4,12 +4,6 @@ on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch:
-    inputs:
-      tag_name:
-        description: 'Tag name to create release for'
-        required: true
-        type: string
 
 jobs:
   build:
