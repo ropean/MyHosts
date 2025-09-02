@@ -21,4 +21,5 @@ jobs:
       shortcut_name: 'MyHosts'
       shortcut_description: 'Hosts file editor'
       notes: 'MyHosts is a utility that helps you edit and manage the Windows hosts file for network configuration and blocking.'
-    secrets: inherit # This passes all secrets from the calling repo
+    # No secrets section - the reusable workflow uses its own repo secrets
+    # secrets: inherit
