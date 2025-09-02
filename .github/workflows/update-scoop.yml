@@ -7,11 +7,11 @@ on:
       - completed
 
 jobs:
-  show-tag:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Echo tag
-        run: echo "Tag is ${{ github.event.workflow_run.head_branch }}"
+  # show-tag:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Echo tag
+  #       run: echo "Tag is ${{ github.event.workflow_run.head_branch }}"
 
   update-scoop:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
