@@ -2,14 +2,10 @@ name: Update MyHosts in Scoop Bucket
 
 on:
   release:
-    types: [published, released, created]
-  push:
-    tags:
-      - 'v*'
+    types: [released]
 
 jobs:
   update-scoop:
-    if: github.event_name == 'release' || (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/'))
     uses: ropean/my-github-actions/.github/workflows/update-scoop.yml@main
     with:
       tag: ${{ github.event.release.tag_name }}
