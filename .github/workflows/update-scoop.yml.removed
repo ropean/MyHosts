@@ -30,3 +30,5 @@ jobs:
       shortcut_name: 'MyHosts'
       shortcut_description: 'Hosts file editor'
       notes: 'MyHosts is a utility that helps you edit and manage the Windows hosts file for network configuration and blocking.'
+    secrets:
+      SCOOP_ROPEAN_DEPLOY_KEY: ${{ secrets.SCOOP_ROPEAN_DEPLOY_KEY }}

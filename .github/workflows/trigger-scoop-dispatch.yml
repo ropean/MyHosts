@@ -1,0 +1,35 @@
+name: Trigger Scoop Update (Dispatch)
+
+on:
+  workflow_run:
+    workflows: ['Build and Release']
+    types:
+      - completed
+
+jobs:
+  trigger-scoop-update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Scoop Bucket Update
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            https://api.github.com/repos/ropean/scoop-ropean/actions/workflows/update-scoop-dispatch.yml/dispatches \
+            -d '{
+              "ref": "main",
+              "inputs": {
+                "tag": "${{ github.event.release.tag_name }}",
+                "source_repo": "${{ github.repository }}",
+                "app_name": "myhosts",
+                "exe_name": "MyHosts.exe",
+                "description": "Hosts file editor utility for Windows",
+                "homepage": "https://github.com/${{ github.repository }}",
+                "license_identifier": "MIT",
+                "license_url": "https://github.com/${{ github.repository }}/blob/main/LICENSE",     
+                "shortcut_name":  "MyHosts",
+                "shortcut_description": "Hosts file editor",
+                "notes": "MyHosts is a utility that helps you edit and manage the Windows hosts file for network configuration and blocking."
+              }
+            }'
