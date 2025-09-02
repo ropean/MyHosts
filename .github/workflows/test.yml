@@ -1,0 +1,15 @@
+name: Update Scoop
+
+on:
+  release:
+    types: [published] # only when a new release is published
+
+jobs:
+  update-scoop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Do something after release
+        run: echo "Release ${{ github.event.release.tag_name }} is published"
