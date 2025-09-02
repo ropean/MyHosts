@@ -86,6 +86,16 @@ namespace MyHosts
 
       Hide();
     }
+    
+    // Add this method to update position when parent form moves
+    public void UpdatePosition()
+    {
+      if (Owner != null && Visible)
+      {
+        int formWidth = Width;
+        Location = new Point(Owner.Location.X + (Owner.Width - formWidth) / 2, Owner.Location.Y + 100);
+      }
+    }
 
     public void Primary(string message, int durationInSeconds = 5)
     {

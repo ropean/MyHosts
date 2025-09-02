@@ -16,6 +16,16 @@ namespace MyHosts
       LoadHosts();
 
       NotificationForm.Primary("Init hosts successfully.");
+      
+      this.Move += FrmMain_Move;
+    }
+
+    private void FrmMain_Move(object sender, EventArgs e)
+    {
+        if (NotificationForm != null && NotificationForm.Visible)
+        {
+            NotificationForm.UpdatePosition();
+        }
     }
 
     //void TxtURL_KeyPress(object sender, KeyPressEventArgs e)
