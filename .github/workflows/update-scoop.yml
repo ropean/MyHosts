@@ -2,7 +2,7 @@ name: Update MyHosts in Scoop Bucket
 
 on:
   release:
-    types: [released]
+    types: [published]
 
 jobs:
   update-scoop:
