@@ -3,7 +3,7 @@ name: Update MyHosts in Scoop Bucket
 on:
   release:
     types: [published]
-  workflow_dispatch: # Allows manual triggering
+  # workflow_dispatch: # Allows manual triggering
 
 jobs:
   update-scoop:
