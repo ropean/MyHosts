@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag name to create release for'
+        required: true
+        type: string
 
 jobs:
   build:
@@ -51,7 +57,6 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          # tag_name: ${{ steps.get_version.outputs.VERSION_NUMBER }}
           name: Release ${{ steps.get_version.outputs.VERSION_NUMBER }}
           files: MyHosts/bin/Release/MyHosts.exe
           draft: false

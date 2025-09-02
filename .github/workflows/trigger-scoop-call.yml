@@ -5,6 +5,12 @@ on:
     workflows: ['Build and Release']
     types:
       - completed
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag name to create release for'
+        required: true
+        type: string
 
 jobs:
   update-scoop:
