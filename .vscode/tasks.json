@@ -1,0 +1,72 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-debug",
+      "command": "msbuild",
+      "type": "shell",
+      "args": ["${workspaceFolder}/MyHosts/MyHosts.csproj", "/p:Configuration=Debug", "/p:Platform=AnyCPU", "/verbosity:minimal"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-debug-x64",
+      "command": "msbuild",
+      "type": "shell",
+      "args": ["${workspaceFolder}/MyHosts/MyHosts.csproj", "/p:Configuration=Debug", "/p:Platform=x64", "/verbosity:minimal"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-release",
+      "command": "msbuild",
+      "type": "shell",
+      "args": ["${workspaceFolder}/MyHosts/MyHosts.csproj", "/p:Configuration=Release", "/p:Platform=AnyCPU", "/verbosity:minimal"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "clean",
+      "command": "msbuild",
+      "type": "shell",
+      "args": ["${workspaceFolder}/MyHosts/MyHosts.csproj", "/t:Clean", "/verbosity:minimal"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      },
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

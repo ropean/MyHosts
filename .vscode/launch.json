@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch MyHosts",
+      "type": "clr",
+      "request": "launch",
+      "program": "${workspaceFolder}/MyHosts/bin/x64/Debug/MyHosts.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}/MyHosts/bin/x64/Debug",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "preLaunchTask": "build-debug-x64",
+      "justMyCode": true,
+      "enableStepFiltering": false,
+      "requireExactSource": false
+    },
+    {
+      "name": "Attach to MyHosts",
+      "type": "clr",
+      "request": "attach",
+      "processId": "${command:pickProcess}"
+    }
+  ]
+}
